@@ -1,7 +1,9 @@
 import "./globals.css";
 import { ThemeProvider } from "@/theme";
-import Navbar from "@/components/header";
+import Header from "@/components/header";
 import Footer from "@/components/footer";
+import FoodCard from "@/components/Card";
+import Discount from "@/components/utils/discount"
 
 export default function RootLayout({
   children,
@@ -21,7 +23,9 @@ export default function RootLayout({
           rowGap: 200,
         }}
       >
-        <Navbar />
+        <Header />
+        <FoodCard/>
+        <Discount/>
         <ThemeProvider>{children}</ThemeProvider>
         <Footer />
       </body>
