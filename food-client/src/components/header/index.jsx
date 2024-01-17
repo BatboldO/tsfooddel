@@ -1,10 +1,13 @@
 "use client";
 import React from "react";
 import { Button } from "@mui/material";
+import SearchIcon from '@mui/icons-material/Search';
+import ShoppingBasketIcon from '@mui/icons-material/ShoppingBasket';
+import Box from '@mui/material/Box'
 
-const Navbar = () => {
+const Header = () => {
   return (
-    <nav style={{ display: "flex", maxWidth: "100%", marginTop: 25 }}>
+    <header style={{ display: "flex", maxWidth: "100%", marginTop: 25 }}>
       <div style={{ display: "flex", marginRight: 150 }}>
         <svg
           width="41"
@@ -23,21 +26,28 @@ const Navbar = () => {
           />
         </svg>
 
-        <Button variant="text">Нүүр</Button>
+        <Button variant="primary" f>Нүүр</Button>
 
-        <Button variant="text">Хоолны цэс</Button>
-        <Button variant="text">Хүргэлтийн бүс</Button>
+        <Button variant="primary">Хоолны цэс</Button>
+        <Button variant="primary">Хүргэлтийн бүс</Button>
       </div>
 
-      <div style={{ display: "flex" }}>
+      <div style={{ display: "flex" ,  }}>
+        
+
+        <Box>
+        <SearchIcon>
         <input type="text" placeholder="Хайх" />
+        </SearchIcon>
+        </Box>
 
-        <Button variant="text">Сагс</Button>
+        <ShoppingBasketIcon/>
+        <Button variant="primary">Сагс</Button>
 
-        <Button variant="text">Нэвтрэх</Button>
+        <Button variant="primary">Нэвтрэх</Button>
       </div>
-    </nav>
+    </header>
   );
 };
 
-export default Navbar;
+export default Header;
