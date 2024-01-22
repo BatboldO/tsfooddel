@@ -1,9 +1,5 @@
-import "./globals.css";
+// import "./scss/globals.scss";
 import { ThemeProvider } from "@/theme";
-import Header from "@/components/header";
-import Footer from "@/components/footer";
-import FoodCard from "@/components/Card";
-import Discount from "@/components/utils/discount"
 
 export default function RootLayout({
   children,
@@ -12,22 +8,8 @@ export default function RootLayout({
 }) {
   return (
     <html lang="en">
-      <body
-        style={{
-          maxWidth: "100%",
-          height: "auto",
-          display: "flex",
-          flexDirection: "column",
-          alignItems: "center",
-          justifyContent: "center",
-          rowGap: 200,
-        }}
-      >
-        <Header />
-        <FoodCard/>
-        <Discount/>
+      <body>
         <ThemeProvider>{children}</ThemeProvider>
-        <Footer />
       </body>
     </html>
   );
