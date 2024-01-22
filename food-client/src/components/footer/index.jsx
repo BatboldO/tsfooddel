@@ -6,7 +6,7 @@ import InstagramIcon from '@mui/icons-material/Instagram';
 import TwitterIcon from '@mui/icons-material/Twitter';
 
 
-const Footer = () => {
+export const Footer = () => {
   return (
     <Box component="footer" sx={{ py: 3, px: 2, bgcolor: "#18BA51", }}>
       <Container maxWidth="xl" style={{ alignItems: "center", display: "flex", flexDirection: "column", rowGap: 20, position:"relative"}} >
@@ -34,8 +34,8 @@ const Footer = () => {
         </div>
         <div class="flex">
          <IconButton> <FacebookIcon/> </IconButton>
-         <InstagramIcon/>
-          <TwitterIcon/>
+         <IconButton> <InstagramIcon/> </IconButton>
+          <IconButton><TwitterIcon/> </IconButton>
           </div>
        
         <svg  width="1300" height="1" viewBox="0 0 1300 1"  fill="none" xmlns="http://www.w3.org/2000/svg" >
@@ -64,4 +64,3 @@ function Copyright() {
 }
 
 
-export default Footer;
