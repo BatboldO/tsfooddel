@@ -1,32 +1,20 @@
 "use client";
 
-import  {Button} from "@/components/core/Button";
-import  {Input} from "@/components/core/Input";
-import { Box, Container, Stack, Typography } from "@mui/material";
-import { green } from "@mui/material/colors";
-import {Header} from "@/components/header"
-import {Footer} from "@/components/footer"
-import CheckBoxOutlineBlankIcon from '@mui/icons-material/CheckBoxOutlineBlank';
-import Checkbox from '@mui/material/Checkbox';
+import { Button, Input } from "@/components";
+import {
+  Box,
+  Checkbox,
+  Container,
+  FormControlLabel,
+  Stack,
+  Typography,
+} from "@mui/material";
 
 import React from "react";
 
-const label = { inputProps: { 'aria-label': 'Checkbox demo' } };
-
-function goToHome() {
-    window.location.href = 'http://localhost:3000/';
-}
-
-export function SwitchtoLogin() {
-    window.location.href = 'http://localhost:3000/Login';
-}
-
-
 const SignupPage = () => {
   return (
-
-   <Container>
-       <Header/>
+    <Container>
       <Box
         sx={{
           display: "flex",
@@ -36,41 +24,37 @@ const SignupPage = () => {
           margin: "auto ",
           px: "2.1rem",
           maxWidth: "450px",
-          height: "calc(100vh - 90px)",
+          padding: "5rem 0",
         }}
       >
         <Typography
           align="center"
           gutterBottom
-          sx={{ fontSize: "28px", fontWeight: "700",  }}
+          sx={{ fontSize: "28px", fontWeight: "700" }}
         >
-         Бүртгүүлэх
+          Бүртгүүлэх
         </Typography>
-        <Stack width="100%" sx={{ mb: "2rem" }}>
-          <Input label="Нэр" />
-          <Input label="Имэйл" />
-          <Input label="Хаяг" />
-          <Input label="Нууц үг" showPassword />
-          <Input label="Нууц үгээ баталгаажуулна уу" showPassword />
-          
+        <Stack width="100%" sx={{ mb: "1rem" }}>
+          <Input name="name" label="Нэр" />
+          <Input name="email" label="И-Мэйл"  />
+          <Input name="address" label="Хаяг" />
+          <Input name="password" label="Нууц үг" showPassword />
+          <Input name="repass" label="Нууц үг давтах" showPassword />
         </Stack>
-        <Checkbox {...label} />
-        <Typography marginBottom={12} >Үйлчилгээний нөхцөл зөвшөөрөх</Typography>
+
+        <Stack sx={{ mb: "1rem" }}>
+          <FormControlLabel
+            control={<Checkbox name="jason" />}
+            label="Үйлчилгээний нөхцөл зөвшөөрөх"
+          />
+        </Stack>
+
         <Stack flex="row" width="100%" justifyContent="flex-end">
-          <Button label="Бүртгүүлэх" onClick={(goToHome)}  />
-        </Stack>
-        <Stack sx={{ my: "2rem" }}>
-          <Typography>Эсвэл</Typography>
-        </Stack>
-        <Stack flex="row" width="100%" justifyContent="flex-end">
-          <Button label="Нэвтрэх" btnType="outlined" onClick={(SwitchtoLogin)} />
+          <Button label="Бүртгүүлэх" />
         </Stack>
       </Box>
-      <Footer/>
     </Container>
-
   );
 };
-
 
 export default SignupPage;

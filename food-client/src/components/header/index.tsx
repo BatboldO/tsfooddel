@@ -1,6 +1,6 @@
 "use client";
 
-import * as React from "react";
+import { useState, MouseEvent } from "react";
 import {
   AppBar,
   Box,
@@ -27,17 +27,13 @@ const settings = ["Профайл", "Тохиргоо", , "Гарах"];
 
 export const Header = () => {
   const user = null;
-  const [anchorElNav, setAnchorElNav] = React.useState<null | HTMLElement>(
-    null
-  );
-  const [anchorElUser, setAnchorElUser] = React.useState<null | HTMLElement>(
-    null
-  );
+  const [anchorElNav, setAnchorElNav] = useState<null | HTMLElement>(null);
+  const [anchorElUser, setAnchorElUser] = useState<null | HTMLElement>(null);
 
-  const handleOpenNavMenu = (event: React.MouseEvent<HTMLElement>) => {
+  const handleOpenNavMenu = (event: MouseEvent<HTMLElement>) => {
     setAnchorElNav(event.currentTarget);
   };
-  const handleOpenUserMenu = (event: React.MouseEvent<HTMLElement>) => {
+  const handleOpenUserMenu = (event: MouseEvent<HTMLElement>) => {
     setAnchorElUser(event.currentTarget);
   };
 
@@ -127,13 +123,15 @@ export const Header = () => {
               fontSize="medium"
               sx={{ position: "absolute", left: 12 }}
             />
-            <OutlinedInput sx={{ borderRadius: 3, pl: 6, height: "42px" }} />
+            <OutlinedInput
+              placeholder="Search"
+              sx={{ borderRadius: 3, pl: 6, height: "42px" }}
+            />
           </Box>
 
           <Box
             sx={{ display: "flex", alignItems: "center", gap: 2, flexGrow: 0 }}
           >
-            <Link href="">
             <Box sx={{ px: 2 }}>
               <IconButton onClick={() => {}} color="inherit">
                 <ShoppingBasketOutlinedIcon fontSize="medium" />
@@ -143,17 +141,14 @@ export const Header = () => {
                     marginLeft: "8px",
                     fontSize: "1rem",
                     fontWeight: "bold",
-                    color:"black"
                   }}
                 >
                   Сагс
                 </span>
               </IconButton>
             </Box>
-            </Link>
-            <Link href="Login">
             <Box sx={{ px: 2 }}>
-              <IconButton onClick={() => {}}>
+              <IconButton onClick={() => {}} color="inherit" href="/login">
                 <PersonOutlineOutlinedIcon fontSize="medium" />
                 <span
                   style={{
@@ -161,15 +156,13 @@ export const Header = () => {
                     marginLeft: "8px",
                     fontSize: "1rem",
                     fontWeight: "bold",
-                    color:"black"
-
                   }}
                 >
                   Нэвтрэх
                 </span>
               </IconButton>
             </Box>
-            </Link>
+
             {user && (
               <Tooltip title="Профайл">
                 <IconButton onClick={handleOpenUserMenu}>

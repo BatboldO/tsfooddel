@@ -5,7 +5,7 @@ import  {Input} from "@/components/core/Input";
 import { Box, Container, Stack, Typography } from "@mui/material";
 import { green } from "@mui/material/colors";
 import {Header} from "@/components/header"
-import {Footer} from "@/components/footer"
+import {Footer} from "@/components/Footer"
 
 import React from "react";
 import { text } from "stream/consumers";
