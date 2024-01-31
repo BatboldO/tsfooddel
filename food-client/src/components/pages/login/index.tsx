@@ -1,37 +1,44 @@
 "use client";
 
 import { Button, Input } from "@/components";
+import { UserContext } from "@/context/userProvider"
 import { Box, Container, Stack, Typography } from "@mui/material";
-import {ChangeEvent, useState }from "react"
+import { useFormik } from "formik";
+import * as yup from "yup";
+import React, { useContext } from "react";
 
 
 
+const validationSchema = yup.object({
+  email: yup
+    .string()
+    .max(100, "Имэйл хаяг 100 тэмдэгтээч хэтрэхгүй байна.")
+    .required("Имэйл хаягыг заавал бөглөнө үү.")
+    .email("Хүчинтэй имэйл хаяг байх ёстой")
+    .matches(
+      /^[A-Za-z0-9_!#$%&'*+\/=?`{|}~^.-]+@gmail[A-Za-z0-9.-]+$/,
+      "Та зөвхөн gmail хаяг оруулна"
+    ),
+  password: yup
+    .string()
+    .required("Нууц үгээ заавал бөглөнө үү.")
+    .min(6, "Нууц үг хамгийн багадаа . тэмдэгт байх байх ёстой."),
+});
 const LoginPage = () => {
+  const { login } = useContext(UserContext);
 
-  const [email, setEmail] = useState("");
-  const [password, setPassword] = useState("");
-  
+  const formik = useFormik({
+    onSubmit: ({ email, password }) => {
+      console.log("EMAIL", email);
+      console.log("PASS", password);
+      login(email, password);
+    },
+    initialValues: { email: "", password: "" },
+    validateOnChange: false,
+    validateOnBlur: false,
+    validationSchema,
+  });
 
- 
-  // const MyStepper = () => {
-  //   const [activeStep, setActiveStep] = useState(1);
-  //   const [user, setUser] = useState({
-  //     email: "",
-  //     password: "",
-  //     otp: "",
-  //   });
-  
-
-  // const handleAllChange = (e: ChangeEvent<HTMLInputElement>) => {
-  //   setUser((prev) => ({ ...prev, [e.target.name]: e.target.value }));
-  // };
-
-  // const handleClick = () => {
-  //   window.location.href = "http://localhost:3000"
-  // }
- 
-
-  
   return (
     <Container>
       <Box
@@ -54,16 +61,26 @@ const LoginPage = () => {
           Нэвтрэх
         </Typography>
         <Stack width="100%" sx={{ mb: "2rem" }}>
-          <Input name="email"label="Имэйл"  />
-          <Input  name="password" label="Нууц үг" showPassword  />
+          <Input
+            name="email"
+            value={formik.values.email}
+            onChange={formik.handleChange}
+            errorText={formik.errors.email}
+            label="Имэйл"
+          />
+          <Input
+            name="password"
+            value={formik.values.password}
+            onChange={formik.handleChange}
+            errorText={formik.errors.password}
+            label="Нууц үг"
+            showPassword
+          />
           <Button label="Нууц үг сэргээх" btnType="text" href="/forgot-pass" />
-          {/* <Typography variant="button" align="right">
-            Нууц үг сэргээх
-          </Typography> */}
         </Stack>
 
         <Stack flex="row" width="100%" justifyContent="flex-end">
-          <Button label="Нэвтрэх"/>
+          <Button label="Нэвтрэх" onClick={formik.handleSubmit} />
         </Stack>
         <Stack sx={{ my: "2rem" }}>
           <Typography>Эсвэл</Typography>
@@ -76,5 +93,4 @@ const LoginPage = () => {
   );
 };
 
-
-export default LoginPage;
+export default LoginPage;     

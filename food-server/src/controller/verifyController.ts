@@ -29,7 +29,7 @@ export const sendEmailToUser = async (req: Request, res: Response) => {
 
     await findUser.save();
 
-    await sendEmail(email, otp);
+    await sendEmail({email, otp});
 
     res.status(201).json({ message: "Email амжилттай илгээгдлээ." });
   } catch (error) {
