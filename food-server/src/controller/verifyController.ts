@@ -19,7 +19,7 @@ export const sendEmailToUser = async (req: Request, res: Response) => {
     const findUser = await User.findOne({ email });
 
     if (!findUser) {
-      return res.status(400).json({ message: "Хэрэглэгч олдсонгүй" });
+     return res.status(400).json({ message: "Хэрэглэгч олдсонгүй" });
     }
 
     console.log("OTP", otp);

@@ -1,63 +1,69 @@
-import { Request, Response } from "express";
+import { Request, Response , NextFunction} from "express";
+import bcrypt from "bcrypt";
+import jwt from "jsonwebtoken";
 import User from "../model/user";
-import bcrypt from "bcrypt"
-import jwt from "jsonwebtoken"
-import { sendOtpToEmail } from "../utils/sendEmail";
+import { sendEmail } from "../utils/sendEmail";
+import { error } from "console";
 
-export const signup = async (req: Request, res:Response) => {
-    
-    try {
-      const newUser = req.body;
-      const salt = await bcrypt.genSalt(10);
-      const hashedPassword = await bcrypt.hash(newUser.password, salt);
-      await User.create({ ...newUser, password: hashedPassword });
-       const user = await User.create({... newUser, password:hashedPassword});
-       const verifyToken = jwt.sign({}, process.env.JWT_PRIVATE_KEY as string, {expiresIn: "5m"})
-       sendOtpToEmail({email:user.email,token:verifyToken})
+
+
+export const signup = async (req: Request, res: Response) => {
+  console.log("Signup");
+  try {
+    const newUser = req.body;
+    const salt = await bcrypt.genSalt(10);
+    const hashedPassword = await bcrypt.hash(newUser.password, salt);
+    const user = await User.create({ ...newUser, password: hashedPassword });
+    const verifyToken = jwt.sign(
+      { email: user.email },
+      process.env.JWT_PRIVATE_KEY as string,
+      {
+        expiresIn: "5m",
+      }
+    );
+    sendEmail({ email: user.email, token: verifyToken });
+    res.status(201).json({
+      message:
+        "Шинэ хэрэглэгч амжилттай бүртгэгдлээ таны бүртгэлтэй имэйл хаяг руу баталгаажуулах email илгээсэн.",
+    });
+  } catch (error) {
     res
-       .status(201)
-       .json({ message: "added new user", });
-    } catch (error) {
-        res 
-           .status(400)
-           .json({ message: "Failed to add new user", error})
- }
+      .status(400)
+      .json({ message: "Шинэ хэрэглэгч бүртгэх үед алдаа гарлаа.", error });
+  }
 };
 
-export const login = async (req: Request, res:Response) => {
-    
-    try {
-    const {email, password} = req.body;
-    const user = await User.findOne({email}).select("+password")
+export const login = async (req: Request, res: Response , next:NextFunction) => {
+  try {
+    const { email, password } = req.body;
+    console.log("LOGIN", email);
+    const user = await User.findOne({ email }).select("+password");
 
-    if(!user){
-      return res 
-      .status(400)
-      .json({ message: `${email}-User does not exist`,})
+    if (!user) {
+      return res
+        .status(400)
+        .json({ message: `${email}-тэй хэрэглэгч бүртгэлгүй байна.` });
     }
 
-      const isValid = await bcrypt.compare(password, user.password)
+    const isValid = await bcrypt.compare(password, user.password);
 
-      if (!isValid) { 
-         return res 
-         .status(400)
-         .json({ message: "incorrect email or password",})
-       }
-      
+    if (!isValid) {
+      return res
+        .status(400)
+        .json({ message: `Имэйл эсвэл нууц үг буруу байна.` });
+    }
 
-       const token = jwt.sign({
-         id: user.id,
+    const token = jwt.sign(
+      {
+        id: user._id,
       },
-       process.env.JWT_KEY as string, {expiresIn:process.env.JWT_EXPIRES_IN});
-
-   //   console.log("User", user)
-    res
-       .status(201)
-       .json({ message: "Found user", token});
-    } catch (error) {
-        res 
-           .status(400)
-           .json({ message: "Failed to find user", error})
- }
+      process.env.JWT_PRIVATE_KEY as string,
+      { expiresIn: process.env.JWT_EXPIRES_IN }
+    );
+    res.status(201).json({ message: "Хэрэглэгч амжилттай нэвтэрлээ", token });
+    console.log("error", error)
+  } catch (error) {
+   next(error);
+    
+  }
 };
-

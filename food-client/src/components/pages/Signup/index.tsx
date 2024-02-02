@@ -23,8 +23,8 @@ const validationSchema = yup.object({
   .string()
   .max(100, "email hayag ni 100 temdegtees hetrehgui bolohiig anhaarna uu")
   .required("email hayagiig zaaval oruulna uu")
-  .email("huchintei email hayag baih yostoi")
-  .matches(/^[@\s]+@[^@\s,]*/, "ta zuvhun gmail hayag oruulna uu"),
+  .email("huchintei email hayag baih yostoi"),
+  // .matches(/^[@\s]+@[^@\s,]*/, "ta zuvhun gmail hayag oruulna uu"),
   address: yup
   .string()
   .required(),
