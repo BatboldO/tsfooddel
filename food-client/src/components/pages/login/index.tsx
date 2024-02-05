@@ -86,7 +86,7 @@ const LoginPage = () => {
           <Typography>Эсвэл</Typography>
         </Stack>
         <Stack flex="row" width="100%" justifyContent="flex-end">
-          <Button label="Бүртгүүлэх" btnType="outlined" href="/signup" />
+          <Button label="Бүртгүүлэх" btnType="outlined" href="/Signup" />
         </Stack>
       </Box>
     </Container>

@@ -1,11 +1,10 @@
 import { Request, Response } from "express";
 
-// import { customAlphabet } from "nanoid";
 import bcrypt from "bcrypt";
 import { sendEmail } from "../utils/sendEmail";
 import User from "../model/user";
 
-// const nanoid = customAlphabet("1234567890", 4);
+
 
 export const sendEmailToUser = async (req: Request, res: Response) => {
   console.log("SEND_EMAIL");
@@ -19,7 +18,7 @@ export const sendEmailToUser = async (req: Request, res: Response) => {
     const findUser = await User.findOne({ email });
 
     if (!findUser) {
-      return res.status(400).json({ message: "Хэрэглэгч олдсонгүй" });
+     return res.status(400).json({ message: "Хэрэглэгч олдсонгүй" });
     }
 
     console.log("OTP", otp);
