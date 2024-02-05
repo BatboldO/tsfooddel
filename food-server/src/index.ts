@@ -9,7 +9,9 @@ import authRoute from "./routes/authRoute";
 import userRoute from "./routes/userRoute";
 import verifyRoute from "./routes/verifyRoute";
 import errorHandler from "./middleware/errorHandler";
-import categoryRoute from "./routes/categoryRoute"
+import categoryRoute from "./routes/categoryRoute";
+import foodRoute from "./routes/foodRoute";
+import uploadRoute from "./routes/uploadRoute"
 
 const PORT = process.env.PORT;
 const MONGO_URI = process.env.MONGO_URI as string;
@@ -23,7 +25,9 @@ app.use(express.json());
 app.use("/auth", authRoute);
 app.use("/users", userRoute);
 app.use("/category", categoryRoute);
+app.use("/Food", foodRoute);
 app.use("/verify", verifyRoute);
+app.use("/upload", uploadRoute);
 
 app.use(errorHandler);
 

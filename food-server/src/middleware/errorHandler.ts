@@ -6,7 +6,7 @@ const errorHandler = (
    res: Response, 
    next: NextFunction
 ) => {
-    console.log("ERR MIDD====>",  err.stack?.red.underline);
+    console.log("ERR MIDD====>",  error.stack?.red.underline);
 
     res.status(500).json ({
         message: error.message || "Internal Server Error",
@@ -16,3 +16,4 @@ const errorHandler = (
  export default errorHandler;
 
 
+//  error.stack?.red.underline);
