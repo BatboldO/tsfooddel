@@ -1,15 +1,25 @@
-import {Router} from "express"
-import { getAllCategory, createCategory,updateCategory,deleteCategory, getCategory } from "../controller/categoryController";
+import { Router } from "express";
+import {
+  createCategory,
+  deleteCategory,
+  getAllCategory,
+  getCategory,
+  updateCategory,
+} from "../controller/categoryController";
+import { upload } from "../utils/multer";
+import { authenticate } from "../middleware/auth";
 
 const router = Router();
 
-router.route("/").get(getAllCategory).post(createCategory)
+router
+  .route("/")
+  .get(authenticate, getAllCategory)
+  .post(upload.single("image"), createCategory);
 
 router
-.route("/categoryId")
-.get(getCategory)
-.put(updateCategory)
-.delete(deleteCategory)
-
+  .route("/:categoryId")
+  .get(getCategory)
+  .put(updateCategory)
+  .delete(deleteCategory);
 
 export default router;
