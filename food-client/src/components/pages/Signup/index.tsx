@@ -13,6 +13,7 @@ import {useFormik} from "formik"
 import * as yup from "yup"
 import { UserContext } from "@/context/userProvider"
 import React, { useContext } from "react";
+import signup from "@/context/userProvider"
 
  
 const validationSchema = yup.object({
@@ -94,7 +95,7 @@ const SignupPage = () => {
         </Stack>
 
         <Stack flex="row" width="100%" justifyContent="flex-end">
-          <Button label="Бүртгүүлэх" onClick={formik.handleSubmit}/>
+          <Button label="Бүртгүүлэх" onClick={formik.handleSubmit} />
         </Stack>
       </Box>
     </Container>
