@@ -1,19 +1,19 @@
+
 "use client";
 
-import { Grid, Button, Typography } from "@mui/material";
-import { FoodCard, Header } from "@/components";
+import { Grid } from "@mui/material";
+
+import FoodList from "@/components/pages/FoodList";
+import Image from "next/image";
+import HeroSection from "@/components/HeroSection";
+import InfoList from "@/components/Sections/InfoList";
 
 export default function Home() {
   return (
-    <main>
-      <Grid container>
-        <Grid item xs={12} md={12}>
-          <Typography variant="h3">Welcome Mui Framework</Typography>
-        </Grid>
-        {/* <Grid item xs={12} md={12}>
-          <FoodCard data={{ name: "Cool Food", price: 1000, img: "" }} />
-        </Grid> */}
-      </Grid>
-    </main>
+    <Grid container>
+      <HeroSection />
+      <InfoList />
+      <FoodList />
+    </Grid>
   );
 }

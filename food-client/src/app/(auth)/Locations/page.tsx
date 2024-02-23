@@ -1,5 +1,5 @@
 import React from "react";
-import Locations from "@/components/pages/Locations";
+import Locations from "@/components/pages/locations";
 
 const Page = () => {
   return <Locations />;

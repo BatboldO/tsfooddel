@@ -1,7 +1,7 @@
 "use client";
 
-import  {Button} from "@/components/core/Button";
-import  {Input} from "@/components/core/Input";
+import  {Button} from "@/components/Core/Button";
+import  {Input} from "@/components/Core/Input";
 import { Box, Container, Stack, Typography } from "@mui/material";
 import { green } from "@mui/material/colors";
 import {Header} from "@/components/header"
