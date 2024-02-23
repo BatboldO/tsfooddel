@@ -54,7 +54,7 @@ export const DrawerCard = () => {
             <Grid display={"flex"} flexDirection={"column"}>
               <Typography fontWeight={600}>Bowl</Typography>
               <Typography sx={{ color: "#18BA51" }} fontWeight={600}>
-                18,800
+                18,800 
               </Typography>
 
               <Typography color={"gray"}>

@@ -45,11 +45,10 @@ export const CardModal = ({ handleClose, handleOpen, open }: any) => {
                 alt=""
                 width={250}
                 height={250}
-                src="/foodImg/modalPng.png"
+                src="pizza.avif"
                 style={{ width: "100%", height: "100%" }}
               />
             </Grid>
-
             <Grid
               item
               xs={6}
