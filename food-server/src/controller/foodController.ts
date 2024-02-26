@@ -67,7 +67,7 @@ export const createFood = async (req:Request, res:Response, next:NextFunction) =
         const {FoodId} = req.params;
           const foodDel = await Food.findByIdAndDelete(Food);
 
-          if (Food){
+          if (!Food){
             throw new MyError("{$FoodId} not found", 200)
            }
 

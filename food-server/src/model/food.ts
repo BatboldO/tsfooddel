@@ -28,7 +28,7 @@ const foodSchema = new Schema({
     default: "no-food-photo",
   },
   category: {
-    type: Schema.ObjectId,   //!//
+    type: Schema.ObjectId,  
     ref: "Category",
     require: true,
   },
