@@ -42,7 +42,41 @@ const userSchema = new Schema({
     type: Date,
     default: new Date(),
   },
-});
+  phone: String,
+  orders: [
+    {
+      orderNo: String,
+      payment: {
+        paymentAmount: Number,
+        status: {
+          type: String,
+          enum: ["paid", "unpaid"],
+          default: "unpaid",
+        },
+        paidDate: Date,
+        createdAt: Date,
+      },
+      address: {
+        khoroo: { type: String },
+        duureg: { type: String },
+        buildingNo: { type: String },
+        info: String,
+      },
+      delivery: {
+        status: {
+          type: String,
+          enum: ["Pending", "Progressing", "Delivered"],
+          default: "Pending",
+        },
+        deliveredAt: Date,
+      },
+    },
+  ],
+},
+{
+  timestamps: true,
+}
+);
 
 userSchema.pre("save", async function async() {
 if(this.isModified("password")) {
