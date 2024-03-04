@@ -1,9 +1,18 @@
-import { Box, Button, Divider, Drawer, Typography } from "@mui/material";
+import {
+  Box,
+  Divider,
+  Drawer,
+  IconButton,
+  Stack,
+  Typography,
+} from "@mui/material";
 import { FaChevronLeft } from "react-icons/fa";
-
-import React from "react";
+import Lottie from "lottie-react";
+import React, { useContext } from "react";
 import { DrawerCard } from "../DrawerCard";
-import { yellow } from "@mui/material/colors";
+import { BasketContext, UserContext } from "@/context";
+
+import emptyBasketData from "@/../../public/assets/images/lottie/emptyBasket.json";
 
 interface IDrawerProps {
   open: boolean;
@@ -11,37 +20,60 @@ interface IDrawerProps {
 }
 
 const MyDrawer = ({ handleClose, open }: IDrawerProps) => {
+  const { createOrder, user } = useContext(UserContext);
+  const { basket }: any = useContext(BasketContext);
+
+  const handleOrder = () => {
+    if (user) {
+    }
+
+    createOrder(basket, {
+      khoroo: "10 Khoroo",
+      district: "SBD",
+      info: "This is a info",
+    });
+  };
+
   return (
     <>
-      <React.Fragment>
-        <Drawer open={open} onClose={handleClose} anchor="right">
-          <Box width={584} p={5}>
-            <Box
-              pb={5}
-              display={"flex"}
-              alignItems={"center"}
-              justifyContent={"space-between"}
-            >
+      <Drawer open={open} onClose={handleClose} anchor="right">
+        <Box width={584} height={"100%"}>
+          <Box
+            p={3}
+            display={"flex"}
+            alignItems={"center"}
+            justifyContent={"space-between"}
+          >
+            <IconButton onClick={handleClose}>
               <FaChevronLeft />
-              <Typography fontWeight={600}>Таны сагс</Typography>
-              <Typography></Typography>
-            </Box>
-            <Divider />
-            <DrawerCard />
-          </Box>
-          <Box display= "flex" justifyContent="flex-start" >
-            <Divider />
-            <Box display="flex"  flexDirection="column" >
-              <Typography color="grey">Нийт төлөх дүн</Typography>
-             <Typography color="black">34,800₮</Typography>
-             </Box>
-             <Box marginLeft={10} display="flex" justifyContent="flex-end" >
-             <Button variant="contained" color="success" >Захиалах</Button>
-             </Box>
+            </IconButton>
+            <Typography variant="h6" fontWeight={600}>
+              Таны сагс
+            </Typography>
+            <Typography></Typography>
           </Box>
           <Divider />
-        </Drawer>
-      </React.Fragment>
+          {!basket && (
+            <Stack
+              height={"90%"}
+              justifyContent={"center"}
+              alignItems={"center"}
+            >
+              <Box
+                width={200}
+                height={200}
+                sx={{ display: "flex", justifyContent: "center" }}
+              >
+                <Lottie animationData={emptyBasketData} loop />
+              </Box>
+              <Typography variant="h6" align="center">
+                Хоосон байна
+              </Typography>
+            </Stack>
+          )}
+          {basket && <DrawerCard basket={basket} handleOrder={handleOrder} />}
+        </Box>
+      </Drawer>
     </>
   );
 };

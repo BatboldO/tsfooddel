@@ -11,7 +11,3 @@ export const generateHash = async (data: string) => {
   const createdHash = await bcrypt.hash(data, salt);
   return createdHash;
 };
-
-export const generateTotal = async (data: number) => {
-  
-}

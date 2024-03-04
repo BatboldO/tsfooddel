@@ -1,52 +1,52 @@
-import { Grid, Typography } from "@mui/material";
+import {
+  Button,
+  Container,
+  Grid,
+  Skeleton,
+  Stack,
+  Typography,
+} from "@mui/material";
 import React from "react";
 import { FoodCard } from "./Card";
-import AutoAwesomeIcon from '@mui/icons-material/AutoAwesome';
+import Link from "next/link";
 
-const FoodList = () => {
+const FoodList = ({ category, foods }: any) => {
   return (
-    <Grid container>
-    <Grid xs={3}>
-    <FoodCard data={{ name: "Lunch", price: 4000, img: "https://images.unsplash.com/photo-1497034825429-c343d7c6a68f?w=800&auto=format&fit=crop&q=60&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8Mnx8aWNlJTIwY3JlYW18ZW58MHx8MHx8fDA%3D" }} />
-    </Grid>
-    <Grid xs={3}>
-    <FoodCard data={{ name: "Breakfast", price: 2000, img: "https://images.unsplash.com/photo-1482049016688-2d3e1b311543?w=800&auto=format&fit=crop&q=60&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8MTZ8fGJyZWFrZmFzdHxlbnwwfHwwfHx8MA%3D%3D" }}/>
-    </Grid>
-    <Grid xs={3}>
-    <FoodCard data={{ name: "Dinner", price: 9000, img: "https://images.unsplash.com/photo-1542691457-cbe4df041eb2?w=800&auto=format&fit=crop&q=60&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8NHx8YnJlYWtmYXN0fGVufDB8fDB8fHww" }} />
-    </Grid>
-    <Grid xs={3}>
-    <FoodCard data={{ name: "Steak", price: 10000, img: "https://plus.unsplash.com/premium_photo-1669559809547-6e4c4fe41371?w=800&auto=format&fit=crop&q=60&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8Mjl8fGJyZWFrZmFzdHxlbnwwfHwwfHx8MA%3D%3D" }} />
-    </Grid>
-    <Grid container spacing={0}>
-       </Grid>
-  </Grid>
+    <Container>
+      <Grid
+        sx={{ mt: 3, pt: 3 }}
+        container
+        spacing={4}
+        justifyContent="space-between"
+        alignItems="center"
+      >
+        <Typography variant="h6" fontWeight="800">
+          {category?.name}
+        </Typography>
+
+        <Link href={`/categories/123`}>
+          <Button>Бүгдийг харах</Button>
+        </Link>
+      </Grid>
+      <Grid container>
+        {!foods && (
+          <Stack
+            width={"100%"}
+            direction="row"
+            justifyContent="space-between"
+            gap={10}
+          >
+            <Skeleton height={200} width={"100%"}></Skeleton>
+            <Skeleton height={200} width={"100%"}></Skeleton>
+            <Skeleton height={200} width={"100%"}></Skeleton>
+            <Skeleton height={200} width={"100%"}></Skeleton>
+          </Stack>
+        )}
+        {foods &&
+          foods?.map((food: any) => <FoodCard key={food?._id} food={food} />)}
+      </Grid>
+    </Container>
   );
 };
 
 export default FoodList;
-
-{/* <Grid item xs={10} columns={4}
->
-   <Typography> <AutoAwesomeIcon></AutoAwesomeIcon> хямдралтай</Typography>
- <FoodCard data={{ name: "Breakfast", price: 2000, img: "https://images.unsplash.com/photo-1482049016688-2d3e1b311543?w=800&auto=format&fit=crop&q=60&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8MTZ8fGJyZWFrZmFzdHxlbnwwfHwwfHx8MA%3D%3D" }} />
- <FoodCard data={{ name: "Lunch", price: 4000, img: "https://images.unsplash.com/photo-1497034825429-c343d7c6a68f?w=800&auto=format&fit=crop&q=60&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8Mnx8aWNlJTIwY3JlYW18ZW58MHx8MHx8fDA%3D" }} />
- <FoodCard data={{ name: "Dinner", price: 9000, img: "https://images.unsplash.com/photo-1542691457-cbe4df041eb2?w=800&auto=format&fit=crop&q=60&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8NHx8YnJlYWtmYXN0fGVufDB8fDB8fHww" }} />
- <FoodCard data={{ name: "Steak", price: 10000, img: "https://plus.unsplash.com/premium_photo-1669559809547-6e4c4fe41371?w=800&auto=format&fit=crop&q=60&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8Mjl8fGJyZWFrZmFzdHxlbnwwfHwwfHx8MA%3D%3D" }} />
- <Typography>  <AutoAwesomeIcon></AutoAwesomeIcon>  үндсэн хоол</Typography>
- <FoodCard data={{ name: "Breakfast", price: 2000, img: "https://images.unsplash.com/photo-1482049016688-2d3e1b311543?w=800&auto=format&fit=crop&q=60&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8MTZ8fGJyZWFrZmFzdHxlbnwwfHwwfHx8MA%3D%3D" }} />
- <FoodCard data={{ name: "Lunch", price: 4000, img: "https://images.unsplash.com/photo-1497034825429-c343d7c6a68f?w=800&auto=format&fit=crop&q=60&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8Mnx8aWNlJTIwY3JlYW18ZW58MHx8MHx8fDA%3D" }} />
- <FoodCard data={{ name: "Dinner", price: 9000, img: "https://images.unsplash.com/photo-1542691457-cbe4df041eb2?w=800&auto=format&fit=crop&q=60&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8NHx8YnJlYWtmYXN0fGVufDB8fDB8fHww" }} />
- <FoodCard data={{ name: "Steak", price: 10000, img: "https://plus.unsplash.com/premium_photo-1669559809547-6e4c4fe41371?w=800&auto=format&fit=crop&q=60&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8Mjl8fGJyZWFrZmFzdHxlbnwwfHwwfHx8MA%3D%3D" }} />
-  <Typography>  <AutoAwesomeIcon></AutoAwesomeIcon> салат</Typography>
-  <FoodCard data={{ name: "Breakfast", price: 2000, img: "https://images.unsplash.com/photo-1482049016688-2d3e1b311543?w=800&auto=format&fit=crop&q=60&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8MTZ8fGJyZWFrZmFzdHxlbnwwfHwwfHx8MA%3D%3D" }} />
- <FoodCard data={{ name: "Lunch", price: 4000, img: "https://images.unsplash.com/photo-1497034825429-c343d7c6a68f?w=800&auto=format&fit=crop&q=60&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8Mnx8aWNlJTIwY3JlYW18ZW58MHx8MHx8fDA%3D" }} />
- <FoodCard data={{ name: "Dinner", price: 9000, img: "https://images.unsplash.com/photo-1542691457-cbe4df041eb2?w=800&auto=format&fit=crop&q=60&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8NHx8YnJlYWtmYXN0fGVufDB8fDB8fHww" }} />
- <FoodCard data={{ name: "Steak", price: 10000, img: "https://plus.unsplash.com/premium_photo-1669559809547-6e4c4fe41371?w=800&auto=format&fit=crop&q=60&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8Mjl8fGJyZWFrZmFzdHxlbnwwfHwwfHx8MA%3D%3D" }} />
-  <Typography>  <AutoAwesomeIcon></AutoAwesomeIcon>  амттан</Typography>
-  <FoodCard data={{ name: "Breakfast", price: 2000, img: "https://images.unsplash.com/photo-1482049016688-2d3e1b311543?w=800&auto=format&fit=crop&q=60&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8MTZ8fGJyZWFrZmFzdHxlbnwwfHwwfHx8MA%3D%3D" }} />
- <FoodCard data={{ name: "Lunch", price: 4000, img: "https://images.unsplash.com/photo-1497034825429-c343d7c6a68f?w=800&auto=format&fit=crop&q=60&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8Mnx8aWNlJTIwY3JlYW18ZW58MHx8MHx8fDA%3D" }} />
- <FoodCard data={{ name: "Dinner", price: 9000, img: "https://images.unsplash.com/photo-1542691457-cbe4df041eb2?w=800&auto=format&fit=crop&q=60&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8NHx8YnJlYWtmYXN0fGVufDB8fDB8fHww" }} />
- <FoodCard data={{ name: "Steak", price: 10000, img: "https://plus.unsplash.com/premium_photo-1669559809547-6e4c4fe41371?w=800&auto=format&fit=crop&q=60&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8Mjl8fGJyZWFrZmFzdHxlbnwwfHwwfHx8MA%3D%3D" }} />
-  
-</Grid> */}

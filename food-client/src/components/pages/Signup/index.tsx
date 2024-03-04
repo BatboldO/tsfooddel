@@ -6,53 +6,57 @@ import {
   Checkbox,
   Container,
   FormControlLabel,
+  FormHelperText,
   Stack,
   Typography,
 } from "@mui/material";
-import {useFormik} from "formik"
-import * as yup from "yup"
-import { UserContext } from "@/context/userProvider"
-import React, { useContext } from "react";
-import signup from "@/context/userProvider"
+import * as yup from "yup";
+import { useFormik } from "formik";
+import React , {useContext} from "react";
+import { UserContext } from "@/context/UserProvider";
 
- 
 const validationSchema = yup.object({
-  name: yup
-  .string()
-  .required("zaaval boglo"),
+  name: yup.string().required("Нэрийг заавал бөглөнө үү."),
   email: yup
-  .string()
-  .max(100, "email hayag ni 100 temdegtees hetrehgui bolohiig anhaarna uu")
-  .required("email hayagiig zaaval oruulna uu")
-  .email("huchintei email hayag baih yostoi"),
-  // .matches(/^[@\s]+@[^@\s,]*/, "ta zuvhun gmail hayag oruulna uu"),
-  address: yup
-  .string()
-  .required(),
+    .string()
+    .max(100, "Имэйл хаяг 100 тэмдэгтээч хэтрэхгүй байна.")
+    .required("Имэйл хаягыг заавал бөглөнө үү.")
+    .email("Хүчинтэй имэйл хаяг байх ёстой")
+    .matches(
+      /^[A-Za-z0-9_!#$%&'*+\/=?`{|}~^.-]+@gmail[A-Za-z0-9.-]+$/,
+      "Та зөвхөн gmail хаяг оруулна"
+    ),
+  address: yup.string().required("Хаягийг заавал бөглөнө үү."),
   password: yup
-  .string()
-  .min(6, "nuuts ug hamgiin bagadaa 6 temdegt baih yostoi")
-  .required("password talbariig zaaval boglono uu"),
- 
+    .string()
+    .required("Нууц үгээ заавал бөглөнө үү.")
+    .min(6, "Нууц үг хамгийн багадаа 6 тэмдэгт байх ёстой."),
+  rePassword: yup
+    .string()
+    .oneOf([yup.ref("password")], "Нууц үг хоорондоо таарахгүй байна")
+    .min(6, "Хамгийн багадаа 6 тэмдэгтээс тогтоно")
+    .required("Нууц үгийг заавал оруулна уу"),
 });
 
 const SignupPage = () => {
- 
+  const { login } = useContext(UserContext);
   const formik = useFormik({
     onSubmit: ({ email, password }) => {
       console.log("EMAIL", email);
       console.log("PASS", password);
-     
+
     },
-    initialValues: {name:"",  email: "", address:"", password: "" ,repass:"" },
+    initialValues: {
+      name: "",
+      email: "",
+      address: "",
+      password: "",
+      rePassword: "",
+    },
     validateOnChange: false,
     validateOnBlur: false,
     validationSchema,
   });
-
-
-
-
   return (
     <Container>
       <Box
@@ -75,21 +79,48 @@ const SignupPage = () => {
           Бүртгүүлэх
         </Typography>
         <Stack width="100%" sx={{ mb: "1rem" }}>
-          <Input name="name" label="Нэр"  onChange={formik.handleChange}
-            errorText={formik.errors.name} />
-          <Input name="email" label="И-Мэйл"  onChange={formik.handleChange}
-            errorText={formik.errors.email}  />
-          <Input name="address" label="Хаяг" onChange={formik.handleChange}
-            errorText={formik.errors.address} />
-          <Input name="password" label="Нууц үг" showPassword  onChange={formik.handleChange}
-            errorText={formik.errors.password}/>
-          <Input name="password" label="Нууц үг давтах" showPassword onChange={formik.handleChange}
-            errorText={formik.errors.repass} />
+          <Input
+            name="name"
+            value={formik.values.name}
+            onChange={formik.handleChange}
+            errorText={formik.errors.name}
+            label="Нэр"
+          />
+          <Input
+            name="email"
+            value={formik.values.email}
+            onChange={formik.handleChange}
+            errorText={formik.errors.email}
+            label="И-Мэйл"
+          />
+          <Input
+            name="address"
+            value={formik.values.address}
+            onChange={formik.handleChange}
+            errorText={formik.errors.address}
+            label="Хаяг"
+          />
+          <Input
+            name="password"
+            value={formik.values.password}
+            onChange={formik.handleChange}
+            errorText={formik.errors.password}
+            label="Нууц үг"
+            showPassword
+          />
+          <Input
+            name="rePassword"
+            value={formik.values.rePassword}
+            onChange={formik.handleChange}
+            errorText={formik.errors.rePassword}
+            label="Нууц үг давтах"
+            showPassword
+          />
         </Stack>
 
         <Stack sx={{ mb: "1rem" }}>
           <FormControlLabel
-            control={<Checkbox name="jason" />}
+            control={<Checkbox onChange={formik.handleChange} name="isAgree" />}
             label="Үйлчилгээний нөхцөл зөвшөөрөх"
           />
         </Stack>

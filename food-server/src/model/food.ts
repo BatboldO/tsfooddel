@@ -1,4 +1,4 @@
-import { Schema, Types, model } from "mongoose";
+import { Schema, model } from "mongoose";
 
 const foodSchema = new Schema({
   name: {
@@ -21,14 +21,14 @@ const foodSchema = new Schema({
   },
   description: {
     type: String,
-    required: [true, "Хоолны тайлбарыг заавал оруулна."],
+    require: [true, "Хоолны тайлбарыг заавал оруулна."],
   },
   image: {
     type: String,
     default: "no-food-photo",
   },
   category: {
-    type: Schema.ObjectId,  
+    type: Schema.ObjectId,
     ref: "Category",
     require: true,
   },

@@ -65,7 +65,7 @@ const generateLink = (token: string) => {
         <p>
           Thank you for choosing Your Brand. Use the following OTP to complete your Sign Up procedures. OTP is valid for 5 minutes
         </p>
-        <a href="http://localhost:8080/verify/user?token=${token}">
+        <a href="http://localhost:8080/auth/user?token=${token}">
           <h2 style="background:#00466a; margin:0 auto; width:max-content; padding:0 10px;color:#fff; border-radius: 4px;">
             Verified link
           </h2>
@@ -74,7 +74,7 @@ const generateLink = (token: string) => {
         <hr style="border:none;border-top:1px solid #eee" />
         <div style="float:right;padding:8px 0;color:#aaa;font-size:0.8em;line-height:1;font-weight:300">
           <p>Food Platform Inc</p>
-          <p>Global</p>
+          <p>Global</p>s
         </div>
       </div>
     </div> 

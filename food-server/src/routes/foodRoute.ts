@@ -1,15 +1,21 @@
-import {Router} from "express"
-import { getAllFood, createFood,updateFood,deleteFood, getFood } from "../controller/foodController";
+import { Router } from "express";
+import {
+  createFood,
+  getFood,
+  getAllFoods,
+  updateFood,
+  deleteFood,
+} from "../controller/foodController";
+import { authenticate } from "../middleware/auth";
 
 const router = Router();
 
-router.route("/").get(getAllFood).post(createFood)
+router.route("/").get(getAllFoods).post(authenticate, createFood);
 
 router
-.route("/:foodId")
-.get(getFood)
-.put(updateFood)
-.delete(deleteFood)
-
+  .route("/:foodId")
+  .get(getFood)
+  .put(authenticate, updateFood)
+  .delete(authenticate, deleteFood);
 
 export default router;

@@ -1,8 +1,9 @@
 "use client";
 
-import { useState } from "react";
+import { ChangeEvent, useContext, useState } from "react";
 import Box from "@mui/material/Box";
-import Link from "@mui/material/Link";
+import Link from "next/link";
+import { Link as MuiLink } from "@mui/material";
 import Card from "@mui/material/Card";
 import Stack from "@mui/material/Stack";
 import Button from "@mui/material/Button";
@@ -14,34 +15,66 @@ import LoadingButton from "@mui/lab/LoadingButton";
 import { alpha, useTheme } from "@mui/material/styles";
 import InputAdornment from "@mui/material/InputAdornment";
 
-import { useRouter } from "next/navigation";
+import { redirect } from "next/navigation";
 
 import { bgGradient } from "@/theme/css";
 
 import Logo from "@/components/logo";
 import Iconify from "@/components/iconify";
+import axios, { AxiosError } from "axios";
+import { UserType, AuthContext } from "@/providers";
+import { toast } from "react-toastify";
+
+// ----------------------------------------------------------------------
 
 // ----------------------------------------------------------------------
 
 export default function LoginView() {
   const theme = useTheme();
+  const { setAuthUserAndToken } = useContext(AuthContext);
 
-  const router = useRouter();
+  const [userEmail, setUserEmail] = useState("ugtakhbayars@gmail.com");
+  const [userPassword, setUserPassword] = useState("admin12345");
 
   const [showPassword, setShowPassword] = useState(false);
 
-  const handleClick = () => {
-    router.push("/dashboard");
+  const login = async () => {
+    try {
+      const {
+        data: { user, token },
+      } = (await axios.post("http://localhost:8080/auth/login", {
+        userEmail,
+        userPassword,
+      })) as {
+        data: { token: string; user: UserType };
+      };
+
+      console.log(token, user);
+      setAuthUserAndToken(user, token);
+    } catch (error: any) {
+      toast.error("Aлдаа: " + error.response.data.message);
+    }
   };
 
   const renderForm = (
     <>
       <Stack spacing={3}>
-        <TextField name="email" label="Email address" />
+        <TextField
+          name="email"
+          label="Email address"
+          value={userEmail}
+          onChange={(e: ChangeEvent<HTMLInputElement>) => {
+            setUserEmail(e.target.value);
+          }}
+        />
 
         <TextField
           name="password"
           label="Password"
+          value={userPassword}
+          onChange={(e: ChangeEvent<HTMLInputElement>) => {
+            setUserPassword(e.target.value);
+          }}
           type={showPassword ? "text" : "password"}
           InputProps={{
             endAdornment: (
@@ -66,8 +99,14 @@ export default function LoginView() {
         justifyContent="flex-end"
         sx={{ my: 3 }}
       >
-        <Link variant="subtitle2" underline="hover">
-          Forgot password?
+        <Link
+          href={"/forget-password"}
+          passHref
+          style={{ textDecoration: "none" }}
+        >
+          <MuiLink variant="subtitle2" underline="hover">
+            Нууц үг сэргээх?
+          </MuiLink>
         </Link>
       </Stack>
 
@@ -77,9 +116,9 @@ export default function LoginView() {
         type="submit"
         variant="contained"
         color="inherit"
-        onClick={handleClick}
+        onClick={login}
       >
-        Login
+        НЭВТРЭХ
       </LoadingButton>
     </>
   );
@@ -110,13 +149,8 @@ export default function LoginView() {
             maxWidth: 420,
           }}
         >
-          <Typography variant="h4">Sign in to Minimal</Typography>
-
-          <Typography variant="body2" sx={{ mt: 2, mb: 5 }}>
-            Don’t have an account?
-            <Link variant="subtitle2" sx={{ ml: 0.5 }}>
-              Get started
-            </Link>
+          <Typography sx={{ mt: 2, mb: 5 }} variant="h4">
+            Sigin in to Food Platform
           </Typography>
 
           <Stack direction="row" spacing={2}>

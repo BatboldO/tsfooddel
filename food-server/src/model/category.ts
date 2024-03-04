@@ -1,26 +1,25 @@
-import {Schema, model} from "mongoose";
-
+import { Schema, model } from "mongoose";
 
 const categorySchema = new Schema({
-    name: {
-        type: String,
-        require : [true, "category name is mandatory"],
-        unique: true,
-        maxLength: [50, "category name must not exceed 50 characters"],
-    },
-     description: {
-      type: String,
-      required: [true, "catogory info must be included "],
-     },
-     image: {
-        type: String, 
-        default: "no-category-photo",
-     },
-     createdAt: {
-        type: Date,
-        default: Date.now,
-     },
+  name: {
+    type: String,
+    require: [true, "Категорын нэрийг заавал оруулна."],
+    unique: true,
+    maxlength: [50, "Категорын нэрний урт 50 тэмдэгтээс хэтрэхгүй байна."],
+  },
+  description: {
+    type: String,
+    required: [true, "Категорын тайлбарыг заавал оруулна."],
+  },
+  image: {
+    type: String,
+    default: "no-category-photo",
+  },
+  createdAt: {
+    type: Date,
+    default: Date.now,
+  },
 });
 
-const Model = model("Category", categorySchema);
-export default Model; 
+const Category = model("Category", categorySchema);
+export default Category;

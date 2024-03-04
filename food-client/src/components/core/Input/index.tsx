@@ -25,7 +25,7 @@ interface IInputProps {
 export const Input = ({
   name,
   label,
-  errorText = "",
+  errorText,
   value,
   showPassword = false,
   onChange,
@@ -38,7 +38,7 @@ export const Input = ({
         <FormLabel sx={{ my: "4px", color: "black" }}>{label}</FormLabel>
         <OutlinedInput
           name={name}
-          value= {value}
+          value={value}
           onChange={onChange}
           sx={{ backgroundColor: "#ECEDF0" }}
           placeholder={label}

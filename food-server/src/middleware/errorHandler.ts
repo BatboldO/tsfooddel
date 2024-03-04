@@ -1,27 +1,27 @@
-import { Response, Request, NextFunction} from "express";
-
+import { Response, Request, NextFunction } from "express";
 
 interface IMyError extends Error {
-    statusCode: number;
-  }
+  statusCode: number;
+}
 
 const errorHandler = (
-   error: IMyError,
-   req: Request,
-   res: Response, 
-   next: NextFunction
+  err: IMyError,
+  req: Request,
+  res: Response,
+  next: NextFunction
 ) => {
-    console.log("ERR MESSAGE =====>", error.message.cyan);
-    console.log("ERR MIDD====>",  error.stack?.red.underline);
+  console.log("ERR MESSAGE =====>", err.message.cyan);
+  console.log("ERR STACK =====>", err.stack?.red.underline);
 
-    if (error.message === "jwt expired")
-    error.message = "Token-ний хугацаа дууссан байна дахин нэвтэрнэ үү";
-  else if (error.message === "invalid signature")
-    error.message = "Token буруу байна дахин нэвтэрнэ үү";
-  else error.message = error.message;
+  if (err.message === "jwt expired")
+    err.message = "Token-ний хугацаа дууссан байна дахин нэвтэрнэ үү";
+  else if (err.message === "invalid signature")
+    err.message = "Token буруу байна дахин нэвтэрнэ үү";
+  else err.message = err.message;
 
-  res.status(error.statusCode || 500).json({
-    message: error.message || "Серверт алдаа гарлаа дахин оролдоно уу",
+  res.status(err.statusCode || 500).json({
+    message: err.message || "Серверт алдаа гарлаа дахин оролдоно уу",
   });
 };
-    export default errorHandler;
+
+export default errorHandler;

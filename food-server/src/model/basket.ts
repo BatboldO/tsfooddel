@@ -1,22 +1,23 @@
-import {Schema, model} from "mongoose";
+import { Schema, model } from "mongoose";
 
-const basketSchema = new Schema ({
-    User: {
-        type: Schema.Types.ObjectId,
-        ref: "User",
-        required : true,
+const schemaBasket = new Schema({
+  user: {
+    type: Schema.Types.ObjectId,
+    ref: "User",
+    required: true,
+  },
+  foods: [
+    {
+      food: { type: Schema.Types.ObjectId, ref: "Food", required: true },
+      qty: {
+        type: Number,
+        required: true,
+      },
     },
-     foods: [
-        {
-        food: {type: Schema.Types.ObjectId, ref: "Food" , required: true },
-        qty:{
-            type: Number,
-            required: true, 
-        },
-    },
-    ],
-    totalPrice: Number,      
+  ],
+  totalPrice: Number,
 });
 
-const Basket = model("Basket", basketSchema);
+const Basket = model("Basket", schemaBasket);
+
 export default Basket;

@@ -8,7 +8,7 @@ const HeroSection = () => {
     <Box
       sx={{
         backgroundColor: "#18BA51",
-        width: "100vw",
+        // width: "100vw",
         position: "relative",
         alignItems: "center",
       }}
@@ -38,7 +38,7 @@ const HeroSection = () => {
           <Box
             sx={{
               height: "438px",
-              width: "1080px",
+              width: "588px",
               display: "flex",
               flexDirection: "column",
               alignItems: "center",
@@ -46,7 +46,7 @@ const HeroSection = () => {
             }}
           >
             <Image
-              src=""
+              src="/assets/hero-image-1.png"
               alt="hero"
               width={443}
               height={438}
@@ -57,7 +57,7 @@ const HeroSection = () => {
               }}
             />
             <Image
-              src=""
+              src="/assets/hero-image-2.png"
               alt="hero"
               width={313}
               height={313}
