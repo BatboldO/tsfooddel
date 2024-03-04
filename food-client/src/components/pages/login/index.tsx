@@ -1,13 +1,11 @@
 "use client";
 
 import { Button, Input } from "@/components";
-import { UserContext } from "@/context/userProvider"
+import { UserContext } from "@/context/UserProvider";
 import { Box, Container, Stack, Typography } from "@mui/material";
 import { useFormik } from "formik";
 import * as yup from "yup";
 import React, { useContext } from "react";
-
-
 
 const validationSchema = yup.object({
   email: yup
@@ -86,11 +84,11 @@ const LoginPage = () => {
           <Typography>Эсвэл</Typography>
         </Stack>
         <Stack flex="row" width="100%" justifyContent="flex-end">
-          <Button label="Бүртгүүлэх" btnType="outlined" href="/Signup" />
+          <Button label="Бүртгүүлэх" btnType="outlined" href="/signup" />
         </Stack>
       </Box>
     </Container>
   );
 };
 
-export default LoginPage;     
+export default LoginPage;

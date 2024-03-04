@@ -1,41 +1,31 @@
 "use client";
 
 import { ChangeEvent, useState } from "react";
-import Box from "@mui/material/Box";
-import { Button, Input } from "@/components";
-import Typography from "@mui/material/Typography";
-import { Container, Stack } from "@mui/material";
-import axios from "axios";
-import { toast } from "react-toastify";
+import { Container } from "@mui/material";
 
 import StepOne from "./StepOne";
 import StepTwo from "./StepTwo";
 import StepThree from "./StepThree";
 
 const MyStepper = () => {
+  const [user, setUser] = useState({ email: null, otp: null, password: null });
   const [activeStep, setActiveStep] = useState(1);
-  const [user, setUser] = useState({
-    email: "",
-    password: "",
-    otp: "",
-  });
 
   const handleNext = async () => {
-    try {
-      const data = await axios.post("http://localhost:8080/verify/send-email", {
-        email: user.email,
-      });
-      setActiveStep((prev) => prev + 1);
-    } catch (error) {
-      toast.error("Email илгэээхэд алдаа гарлаа.");
-      console.log(error)
-    }
+    setActiveStep((prev) => prev + 1);
   };
 
-  const handleChangeInput = (e: ChangeEvent<HTMLInputElement>) => {
-    setUser((prev) => ({ ...prev, [e.target.name]: e.target.value }));
+  const handleChangeInput = ({
+    name,
+    value,
+  }: {
+    name: string;
+    value: string;
+  }) => {
+    setUser((prev) => ({ ...prev, [name]: value }));
   };
 
+  console.log("USER", user);
   return (
     <Container>
       {activeStep === 1 && (
@@ -53,7 +43,7 @@ const MyStepper = () => {
           handleChangeInput={handleChangeInput}
         />
       )}
-      {activeStep === 3 && <StepThree />}
+      {activeStep === 3 && <StepThree email={user.email} />}
     </Container>
   );
 };

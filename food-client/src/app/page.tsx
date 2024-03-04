@@ -1,19 +1,31 @@
 "use client";
 
-import { Grid, Button, Typography } from "@mui/material";
-import { FoodCard, Header } from "@/components";
+import { Grid } from "@mui/material";
+import FoodList from "@/components/pages/FoodList";
+import HeroSection from "@/components/Sections/Hero";
+import InfoList from "@/components/Sections/InfoList";
+import { useContext, useMemo } from "react";
+import { FoodContext } from "@/context/FoodProvider";
 
 export default function Home() {
+  const { foods }: any = useContext(FoodContext);
+
   return (
-    <main>
-      <Grid container>
-        <Grid item xs={12} md={12}>
-          <Typography variant="h3">Welcome Mui Framework</Typography>
-        </Grid>
-        {/* <Grid item xs={12} md={12}>
-          <FoodCard data={{ name: "Cool Food", price: 1000, img: "" }} />
-        </Grid> */}
-      </Grid>
-    </main>
+    <Grid container>
+      <HeroSection />
+      <InfoList />
+      <FoodList
+        category={{ name: "Үндсэн хоол" }}
+        foods={foods
+          ?.filter((food: any) => food.category.name === "Үндсэн хоол")
+          .slice(0, 4)}
+      />
+      <FoodList
+        category={{ name: "Холимог" }}
+        foods={foods
+          ?.filter((food: any) => food.category.name !== "Үндсэн хоол")
+          .slice(0, 4)}
+      />
+    </Grid>
   );
 }

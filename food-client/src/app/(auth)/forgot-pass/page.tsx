@@ -1,5 +1,5 @@
 import React from "react";
-import MyStepper from "@/components/pages/forgot-pass";
+import MyStepper from "@/components/pages/Forgot-pass";
 
 const Page = () => {
   return <MyStepper />;

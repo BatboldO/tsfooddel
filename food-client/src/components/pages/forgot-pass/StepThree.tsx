@@ -1,11 +1,48 @@
 import { Button, Input } from "@/components";
 import { Box, Container, Stack, Typography } from "@mui/material";
 import { useRouter } from "next/navigation";
+import { ChangeEvent, useState } from "react";
 import Swal from "sweetalert2";
+import { useFormik } from "formik";
+import { object, string, ref } from "yup";
+import axios from "axios";
 
-const StepThree = () => {
+interface IStepProps {
+  email: string | null;
+}
+
+const validationSchema = object({
+  password: string()
+    .min(6, "Хамгийн багадаа 6 тэмдэгтээс тогтоно")
+    .required("Нууц үгийг заавал оруулна уу"),
+  rePassword: string()
+    .oneOf([ref("password")], "Нууц үг хоорондоо таарахгүй байна")
+    .min(6, "Хамгийн багадаа 6 тэмдэгтээс тогтоно")
+    .required("Нууц үгийг заавал оруулна уу"),
+});
+
+const StepThree = ({ email }: IStepProps) => {
   const router = useRouter();
-  const savePassword = async () => {
+
+  const formik = useFormik({
+    onSubmit: async ({ password, rePassword }) => {
+      savePassword(email!, password);
+    },
+    initialValues: { password: "test", rePassword: "retest" },
+    validateOnChange: false,
+    validationSchema,
+    validateOnBlur: false,
+  });
+
+  const savePassword = async (email: string, password: string) => {
+    const res = await axios.post(
+      "http://localhost:8080/verify/reset-password/",
+      {
+        email,
+        password,
+      }
+    );
+    console.log("RES");
     await Swal.fire({
       title: "Таны нууц үг амжилттай солигдлоо",
       text: "та шинэ нууц үгээ ашиглан нэвтэрнэ үү",
@@ -37,9 +74,23 @@ const StepThree = () => {
         </Typography>
 
         <Stack width="100%" sx={{ mb: "2rem" }}>
-          <Input label="Нууц үг" showPassword />
-          <Input label="Нууц үг давтах" showPassword />
-          <Button label={"Сэргээх"} onClick={savePassword} />
+          <Input
+            value={formik.values.password}
+            errorText={formik.errors.password}
+            name="password"
+            label="Нууц үг"
+            showPassword
+            onChange={formik.handleChange}
+          />
+          <Input
+            value={formik.values.rePassword}
+            errorText={formik.errors.rePassword}
+            name="rePassword"
+            label="Нууц үг давтах"
+            showPassword
+            onChange={formik.handleChange}
+          />
+          <Button label={"Сэргээх"} onClick={formik.handleSubmit} />
         </Stack>
       </Box>
     </Container>

@@ -1,6 +1,6 @@
 "use client";
 
-import { useState, MouseEvent } from "react";
+import { useState, MouseEvent, useContext } from "react";
 import {
   AppBar,
   Box,
@@ -13,6 +13,7 @@ import {
   Tooltip,
   MenuItem,
   OutlinedInput,
+  Badge,
 } from "@mui/material";
 import ShoppingBasketOutlinedIcon from "@mui/icons-material/ShoppingBasketOutlined";
 import PersonOutlineOutlinedIcon from "@mui/icons-material/PersonOutlineOutlined";
@@ -21,14 +22,18 @@ import MenuIcon from "@mui/icons-material/Menu";
 import SearchOutlinedIcon from "@mui/icons-material/SearchOutlined";
 import { Logo } from "@/components/Logos";
 import Link from "next/link";
+import MyDrawer from "../Drawer";
+import { BasketContext } from "@/context";
 
 const pages = ["НҮҮР", "ХООЛНЫ ЦЭС", "ХҮРГЭЛТИЙН БҮС"];
 const settings = ["Профайл", "Тохиргоо", , "Гарах"];
 
 export const Header = () => {
   const user = null;
+  const { basket }: any = useContext(BasketContext);
   const [anchorElNav, setAnchorElNav] = useState<null | HTMLElement>(null);
   const [anchorElUser, setAnchorElUser] = useState<null | HTMLElement>(null);
+  const [drawer, setDrawer] = useState(false);
 
   const handleOpenNavMenu = (event: MouseEvent<HTMLElement>) => {
     setAnchorElNav(event.currentTarget);
@@ -44,6 +49,9 @@ export const Header = () => {
   const handleCloseUserMenu = () => {
     setAnchorElUser(null);
   };
+
+  const handleOpenDrawer = () => setDrawer(true);
+  const handleCloseDrawer = () => setDrawer(false);
 
   return (
     <AppBar
@@ -133,19 +141,26 @@ export const Header = () => {
             sx={{ display: "flex", alignItems: "center", gap: 2, flexGrow: 0 }}
           >
             <Box sx={{ px: 2 }}>
-              <IconButton onClick={() => {}} color="inherit">
-                <ShoppingBasketOutlinedIcon fontSize="medium" />
-                <span
-                  style={{
-                    display: "inline-block",
-                    marginLeft: "8px",
-                    fontSize: "1rem",
-                    fontWeight: "bold",
-                  }}
+              <IconButton onClick={handleOpenDrawer} color="inherit">
+                <Badge
+                  badgeContent={basket?.foods?.length}
+                  color="success"
+                  sx={{ marginLeft: 2 }}
                 >
-                  Сагс
-                </span>
+                  <ShoppingBasketOutlinedIcon fontSize="medium" />
+                  <span
+                    style={{
+                      display: "inline-block",
+                      marginLeft: "8px",
+                      fontSize: "1rem",
+                      fontWeight: "bold",
+                    }}
+                  >
+                    Сагс
+                  </span>
+                </Badge>
               </IconButton>
+              <MyDrawer open={drawer} handleClose={handleCloseDrawer} />
             </Box>
             <Box sx={{ px: 2 }}>
               <IconButton onClick={() => {}} color="inherit" href="/login">
