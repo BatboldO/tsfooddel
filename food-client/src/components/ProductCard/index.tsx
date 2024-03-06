@@ -27,6 +27,7 @@ const ProductCard = () => {
         </Box>
       </CardContent>
     </Card>
+    
   );
 };
 

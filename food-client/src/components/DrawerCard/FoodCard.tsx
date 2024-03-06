@@ -61,12 +61,12 @@ const FoodCard = ({ selectedFood }: IBasket) => {
           height: "150px",
         }}
       >
-        {/* <Image
+        <Image
           src={food?.image || 'url("/assets/food-1.jpg")'}
           alt="photo"
           width={100}
           height={100}
-        /> */}
+        />
       </Grid>
       <Grid
         item

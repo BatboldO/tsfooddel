@@ -14,8 +14,8 @@ import { UserContext } from "..";
 export const BasketContext = createContext({} as object);
 
 const token =
-  "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6ImJhdGJibGRvQGdtYWlsLmNvbSIsImlhdCI6MTcwOTU0ODcyNywiZXhwIjoxNzA5NTQ5MDI3fQ.ZMhRr-MgOcM6l5by5JIVK9Ie-ZUBchLOQ5uhUa7WznU";
-
+  "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY1Z…DAzfQ.7NoX5kAVh6NWXBNWojAB4Jt1IqsQBU0GXt7Vqgk5uLU";
+  
 
 const createReq = async (url: string, foodItem: any) => {
   const { data } = (await axios.post(url, foodItem, {
