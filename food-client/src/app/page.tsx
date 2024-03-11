@@ -17,13 +17,13 @@ export default function Home() {
       <FoodList
         category={{ name: "Үндсэн хоол" }}
         foods={foods
-          ?.filter((food: any) => food.category.name === "Үндсэн хоол")
+          ?.filter((food: any) => food.category === "Үндсэн хоол")
           .slice(0, 4)}
       />
       <FoodList
         category={{ name: "Холимог" }}
         foods={foods
-          ?.filter((food: any) => food.category.name !== "Үндсэн хоол")
+          ?.filter((food: any) => food.category !== "Үндсэн хоол")
           .slice(0, 4)}
       />
     </Grid>
